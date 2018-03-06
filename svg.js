@@ -30,6 +30,10 @@ var clearScreen = function(e){
     started = false;
     r = 0;
     growth = 1;
+    elcx = 50;
+    elcy = 50;
+    txtx = 20;
+    txty = 60;
 }
 
 var growCircle = function(){
