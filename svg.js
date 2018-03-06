@@ -18,7 +18,11 @@ var toggle = 1;
 
 var r = 0;
 var growth = 1;
-
+var cl = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+cl.setAttribute("cx", 250);
+cl.setAttribute("cy", 250);
+cl.setAttribute("r", r);
+cl.setAttribute("fill", "green");
 
 var clearScreen = function(e){
     pic.innerHTML = "";
@@ -31,14 +35,7 @@ var clearScreen = function(e){
 var growCircle = function(){
     window.cancelAnimationFrame(frame);
     console.log(frame)
-    
-    pic.innerHTML="";
-    var cl = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    cl.setAttribute("cx", 250);
-    cl.setAttribute("cy", 250);
     cl.setAttribute("r", r);
-    cl.setAttribute("fill", "green");
-    pic.appendChild(cl)
     if (r > 125 || r < 0){
 	growth *= -1;
     }
@@ -53,26 +50,28 @@ var txty = 60;
 var addx = 1;
 var addy = 1;
 
-var screenSaver = function(){
+var el = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+el.setAttribute("cx", elcx);
+el.setAttribute("cy", elcy);
+el.setAttribute("rx", 50);
+el.setAttribute("ry", 33);
+el.setAttribute("fill", "blue");
+
+var txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+txt.setAttribute("fill","white");
+txt.setAttribute("font-size",27);
+txt.setAttribute("font-family", "Verdana");
+txt.setAttribute("x", txtx);
+txt.setAttribute("y", txty);
+txt.innerHTML = "DVD";
+
+var screenSaver = function(){ 
     window.cancelAnimationFrame(frame);
-    pic.innerHTML = "";
-    
-    var el = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+	
     el.setAttribute("cx", elcx);
     el.setAttribute("cy", elcy);
-    el.setAttribute("rx", 50);
-    el.setAttribute("ry", 33);
-    el.setAttribute("fill", "blue");
-    pic.appendChild(el)
-    var txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    txt.setAttribute("fill","white");
-    txt.setAttribute("font-size",27);
-    txt.setAttribute("font-family", "Verdana");
     txt.setAttribute("x", txtx);
     txt.setAttribute("y", txty);
-    txt.innerHTML = "DVD";
-    pic.appendChild(txt);
-
     if ((elcx + 50)> 500 || (elcx - 50)  < 0){
 	addx *= -1;
     }
@@ -91,9 +90,12 @@ var screenSaver = function(){
 var animateCallBack = function(e){
     started = true;
     if (toggle == 1){
+	pic.appendChild(cl);
 	growCircle();
     }
     else{
+	pic.appendChild(el);
+        pic.appendChild(txt);
 	screenSaver();
     }
 }
